@@ -1,5 +1,6 @@
 package com.example.project.controller.blog;
 
+import com.example.project.dto.blog.UserDTO;
 import com.example.project.model.blog.User;
 import com.example.project.service.blog.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, User updateUser) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDTO updateUser) {
         User user = userService.updateUser(id, updateUser);
 
         return ResponseEntity.ok(user);
