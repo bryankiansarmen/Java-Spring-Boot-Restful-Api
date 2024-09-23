@@ -1,6 +1,7 @@
 package com.example.project.controller.blog;
 
-import com.example.project.dto.blog.UserDTO;
+import com.example.project.dto.blog.UpdateUserDTO;
+import com.example.project.dto.blog.UserLoginDTO;
 import com.example.project.model.blog.User;
 import com.example.project.service.blog.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,26 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/users")
-    public ResponseEntity<?> saveUser(@RequestBody User user) {
-        Optional<User> newUser =  userService.saveUser(user);
+    @PostMapping("/user/register")
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
+        Optional<User> newUser =  userService.registerUser(user);
 
         if (newUser.isPresent()) {
             return ResponseEntity.ok(newUser.get());
         }
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists with username: " + user.getUsername() + " and email: " + user.getEmail());
+    }
+
+    @PostMapping("/user/login")
+    public ResponseEntity<?> userCredential(@RequestBody UserLoginDTO userLogin) {
+        Optional<UserLoginDTO> userCredential = userService.loginUser(userLogin);
+
+        if (userCredential.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body("User login successfully!");
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User invalid credential!");
     }
 
     @GetMapping("/users")
@@ -48,7 +60,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDTO updateUser) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UpdateUserDTO updateUser) {
         User user = userService.updateUser(id, updateUser);
 
         return ResponseEntity.ok(user);

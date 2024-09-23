@@ -1,11 +1,22 @@
 package com.example.project.model.blog;
 
+import com.example.project.dto.blog.UserLoginDTO;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users")
+@SqlResultSetMapping(
+        name = "UserLoginDTOMapping",
+        classes = @ConstructorResult(
+                targetClass = UserLoginDTO.class,
+                columns = {
+                        @ColumnResult(name = "email", type = String.class),
+                        @ColumnResult(name = "password", type = String.class)
+                }
+        )
+)
+@Table(name = "users", schema = "dev")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

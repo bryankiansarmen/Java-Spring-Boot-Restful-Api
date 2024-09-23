@@ -1,12 +1,15 @@
 package com.example.project.service.blog;
 
+import com.example.project.dto.blog.UserLoginDTO;
 import com.example.project.exception.UserNotFoundException;
 import com.example.project.model.blog.User;
-import com.example.project.dto.blog.UserDTO;
+import com.example.project.dto.blog.UpdateUserDTO;
 import com.example.project.repository.blog.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +22,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Optional<User> saveUser(User user) {
+    public Optional<User> registerUser(User user) {
         Optional<User> existingUser = userRepository.findByUsernameAndEmail(user.getUsername(), user.getEmail());
 
         if (existingUser.isPresent()) {
@@ -27,6 +30,24 @@ public class UserService {
         }
 
         return Optional.of(userRepository.save(user));
+    }
+
+    public Optional<UserLoginDTO> loginUser(UserLoginDTO userLogin) {
+        List<Object[]> results = userRepository.findByEmailAndPassword(userLogin.getEmail(), userLogin.getPassword());
+
+        if (results.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Object[] row = results.get(0);
+        String resultEmail = row[0].toString();
+        String resultPassword = row[1].toString();
+
+        UserLoginDTO userLoginDTO = new UserLoginDTO();
+        userLoginDTO.setEmail(resultEmail);
+        userLoginDTO.setPassword(resultPassword);
+
+        return Optional.of(userLoginDTO);
     }
 
     public List<User> getAllUsers() {
@@ -37,7 +58,7 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public User updateUser(Long id, UserDTO updateUser) {
+    public User updateUser(Long id, UpdateUserDTO updateUser) {
         return userRepository.findById(id).map( existingUser -> {
             existingUser.setUsername(updateUser.getUsername());
             existingUser.setEmail(updateUser.getEmail());
