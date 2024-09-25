@@ -23,18 +23,18 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/user/register")
+    @PostMapping("/users")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
-        Optional<User> newUser =  userService.registerUser(user);
+        Optional<User> newUser =  userService.saveUser(user);
 
         if (newUser.isPresent()) {
             return ResponseEntity.ok(newUser.get());
         }
 
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists with username: " + user.getUsername() + " and email: " + user.getEmail());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists.");
     }
 
-    @PostMapping("/user/login")
+    @PostMapping("/users/login")
     public ResponseEntity<?> userCredential(@RequestBody UserLoginDTO userLogin) {
         Optional<UserLoginDTO> userCredential = userService.loginUser(userLogin);
 
