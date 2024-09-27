@@ -1,21 +1,13 @@
 package com.example.project.model.blog;
 
-import com.example.project.dto.request.blog.UserLoginDTO;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
 @Entity
-@SqlResultSetMapping(
-        name = "UserLoginDTOMapping",
-        classes = @ConstructorResult(
-                targetClass = UserLoginDTO.class,
-                columns = {
-                        @ColumnResult(name = "email", type = String.class),
-                        @ColumnResult(name = "password", type = String.class)
-                }
-        )
-)
 @Table(name = "users", schema = "dev")
 public class User {
     @Id
@@ -23,12 +15,17 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
+    @NotBlank(message = "Username is required.")
+    @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters.")
     @Column(nullable = false)
     private String username;
 
+    @NotBlank(message = "Email is required.")
+    @Email(message = "Email should be valid.")
     @Column(nullable = false)
     private String email;
 
+    @NotBlank(message = "Password is required.")
     @Column(nullable = false)
     private String password;
 

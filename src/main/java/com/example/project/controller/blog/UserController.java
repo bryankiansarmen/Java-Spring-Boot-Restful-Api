@@ -5,10 +5,12 @@ import com.example.project.dto.request.blog.UpdateUserDTO;
 import com.example.project.dto.request.blog.UserLoginDTO;
 import com.example.project.model.blog.User;
 import com.example.project.service.blog.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,14 +27,14 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
         Optional<User> newUser =  userService.saveUser(user);
 
         if (newUser.isPresent()) {
             return ResponseEntity.ok(newUser.get());
         }
 
-        return ResponseEntity.ok(new CustomResponse(409, "User already exists."));
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new CustomResponse(409, "User already exists."));
     }
 
     @PostMapping("/users/login")
