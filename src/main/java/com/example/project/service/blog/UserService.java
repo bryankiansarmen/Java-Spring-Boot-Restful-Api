@@ -1,8 +1,8 @@
 package com.example.project.service.blog;
 
-import com.example.project.dto.blog.UserLoginDTO;
+import com.example.project.dto.request.blog.UserLoginDTO;
 import com.example.project.model.blog.User;
-import com.example.project.dto.blog.UpdateUserDTO;
+import com.example.project.dto.request.blog.UpdateUserDTO;
 import com.example.project.repository.blog.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

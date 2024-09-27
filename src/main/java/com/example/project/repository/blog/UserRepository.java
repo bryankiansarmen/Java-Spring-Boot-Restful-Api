@@ -1,8 +1,6 @@
 package com.example.project.repository.blog;
 
-import com.example.project.dto.blog.UserLoginDTO;
 import com.example.project.model.blog.User;
-import jakarta.persistence.SqlResultSetMapping;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

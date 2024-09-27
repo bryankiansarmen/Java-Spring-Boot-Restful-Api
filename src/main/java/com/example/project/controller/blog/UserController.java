@@ -1,7 +1,8 @@
 package com.example.project.controller.blog;
 
-import com.example.project.dto.blog.UpdateUserDTO;
-import com.example.project.dto.blog.UserLoginDTO;
+import com.example.project.dto.response.CustomResponse;
+import com.example.project.dto.request.blog.UpdateUserDTO;
+import com.example.project.dto.request.blog.UserLoginDTO;
 import com.example.project.model.blog.User;
 import com.example.project.service.blog.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class UserController {
             return ResponseEntity.ok(newUser.get());
         }
 
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists.");
+        return ResponseEntity.ok(new CustomResponse(409, "User already exists."));
     }
 
     @PostMapping("/users/login")

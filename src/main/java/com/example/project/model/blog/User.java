@@ -1,6 +1,6 @@
 package com.example.project.model.blog;
 
-import com.example.project.dto.blog.UserLoginDTO;
+import com.example.project.dto.request.blog.UserLoginDTO;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
