@@ -1,6 +1,6 @@
 package com.example.project.service.blog;
 
-import com.example.project.dto.request.blog.UserLoginDTO;
+import com.example.project.dto.request.blog.LoginUserDto;
 import com.example.project.model.blog.User;
 import com.example.project.dto.request.blog.UpdateUserDTO;
 import com.example.project.repository.blog.UserRepository;
@@ -29,7 +29,7 @@ public class UserService {
         return Optional.of(userRepository.save(user));
     }
 
-    public Optional<UserLoginDTO> loginUser(UserLoginDTO userLogin) {
+    public Optional<LoginUserDto> loginUser(LoginUserDto userLogin) {
         List<Object[]> results = userRepository.findByEmailAndPassword(userLogin.getEmail(), userLogin.getPassword());
 
         if (results.isEmpty()) {
@@ -40,7 +40,7 @@ public class UserService {
         String resultEmail = row[0].toString();
         String resultPassword = row[1].toString();
 
-        UserLoginDTO userLoginDTO = new UserLoginDTO();
+        LoginUserDto userLoginDTO = new LoginUserDto();
         userLoginDTO.setEmail(resultEmail);
         userLoginDTO.setPassword(resultPassword);
 

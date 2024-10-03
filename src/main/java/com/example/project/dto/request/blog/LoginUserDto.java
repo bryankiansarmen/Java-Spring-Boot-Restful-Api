@@ -1,6 +1,6 @@
 package com.example.project.dto.request.blog;
 
-public class UserLoginDTO {
+public class LoginUserDto {
     private String email;
     private String password;
 
