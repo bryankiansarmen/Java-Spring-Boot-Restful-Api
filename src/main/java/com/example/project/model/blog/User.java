@@ -49,6 +49,16 @@ public class User implements UserDetails {
     }
 
     @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
@@ -77,11 +87,11 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getUsername() {
+    public String getUsernameField() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsernameField(String username) {
         this.username = username;
     }
 
@@ -93,11 +103,11 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public String getPassword() {
+    public String getPasswordField() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPasswordField(String password) {
         this.password = password;
     }
 

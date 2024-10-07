@@ -20,7 +20,7 @@ public class UserService {
     }
 
     public Optional<User> saveUser(User user) {
-        Optional<User> existingUser = userRepository.findByUsernameAndEmail(user.getUsername(), user.getEmail());
+        Optional<User> existingUser = userRepository.findByUsernameAndEmail(user.getUsernameField(), user.getEmail());
 
         if (existingUser.isPresent()) {
             return Optional.empty();
@@ -57,7 +57,7 @@ public class UserService {
 
     public User updateUser(Long id, UpdateUserDTO updateUser) {
         return userRepository.findById(id).map( existingUser -> {
-            existingUser.setUsername(updateUser.getUsername());
+            existingUser.setUsernameField(updateUser.getUsername());
             existingUser.setEmail(updateUser.getEmail());
 
             return userRepository.save(existingUser);
