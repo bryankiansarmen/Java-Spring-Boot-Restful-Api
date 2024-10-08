@@ -1,6 +1,6 @@
 package com.example.project.dto.request.blog;
 
-public class UpdateUserDTO {
+public class UpdateUserDto {
     private String username;
     private String email;
 

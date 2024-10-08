@@ -4,6 +4,11 @@ public class LoginResponse {
     private String token;
     private Long expiration;
 
+    public LoginResponse(String token, Long expiration) {
+        this.token = token;
+        this.expiration = expiration;
+    }
+
     public String getToken() {
         return token;
     }

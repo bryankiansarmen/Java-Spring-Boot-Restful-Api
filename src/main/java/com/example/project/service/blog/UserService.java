@@ -2,7 +2,7 @@ package com.example.project.service.blog;
 
 import com.example.project.dto.request.blog.LoginUserDto;
 import com.example.project.model.blog.User;
-import com.example.project.dto.request.blog.UpdateUserDTO;
+import com.example.project.dto.request.blog.UpdateUserDto;
 import com.example.project.repository.blog.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +55,7 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public User updateUser(Long id, UpdateUserDTO updateUser) {
+    public User updateUser(Long id, UpdateUserDto updateUser) {
         return userRepository.findById(id).map( existingUser -> {
             existingUser.setUsernameField(updateUser.getUsername());
             existingUser.setEmail(updateUser.getEmail());

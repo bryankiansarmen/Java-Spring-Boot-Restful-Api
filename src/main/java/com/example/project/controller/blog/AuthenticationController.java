@@ -1,12 +1,16 @@
 package com.example.project.controller.blog;
 
 import com.example.project.dto.request.blog.LoginUserDto;
+import com.example.project.dto.request.blog.RefreshTokenDto;
 import com.example.project.dto.request.blog.RegisterUserDto;
 import com.example.project.dto.response.LoginResponse;
 import com.example.project.model.blog.User;
 import com.example.project.service.blog.AuthenticationService;
 import com.example.project.service.blog.JwtService;
+import org.springframework.boot.web.embedded.undertow.UndertowWebServer;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,10 +41,13 @@ public class AuthenticationController {
 
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
-        LoginResponse loginResponse = new LoginResponse();
-        loginResponse.setToken(jwtToken);
-        loginResponse.setExpiration(jwtService.getExpirationTime());
+        return ResponseEntity.ok(new LoginResponse(jwtToken, jwtService.getExpirationTime()));
+    }
 
-        return ResponseEntity.ok(loginResponse);
+    @PostMapping("/refresh")
+    public ResponseEntity<LoginResponse> refreshToken(@RequestBody RefreshTokenDto refreshTokenDto) {
+        String jwtToken = jwtService.refreshToken(refreshTokenDto.getToken());
+
+        return ResponseEntity.ok(new LoginResponse(jwtToken, jwtService.getExpirationTime()));
     }
 }
