@@ -29,6 +29,12 @@ public class Category {
     @Column(name = "is_active", nullable = false)
     private boolean active = true;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "category")
+    private List<Post> posts;
+
+    public Category() {
+    }
+
     public Category(String name) {
         this.name = name;
     }

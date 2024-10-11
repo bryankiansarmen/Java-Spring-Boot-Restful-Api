@@ -37,6 +37,11 @@ public class User implements UserDetails {
 
     @Column(name = "is_active", nullable = false)
     private boolean active = true;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Post> posts;
+
+    public User() {
+    }
 
     public User(String username, String email, String password) {
         this.username = username;
