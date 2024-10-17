@@ -55,6 +55,14 @@ public class Category {
         this.name = name;
     }
 
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     public boolean isActive() {
         return active;
     }
