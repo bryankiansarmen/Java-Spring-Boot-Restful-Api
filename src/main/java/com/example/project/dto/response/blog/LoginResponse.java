@@ -1,4 +1,4 @@
-package com.example.project.dto.response;
+package com.example.project.dto.response.blog;
 
 public class LoginResponse {
     private String token;

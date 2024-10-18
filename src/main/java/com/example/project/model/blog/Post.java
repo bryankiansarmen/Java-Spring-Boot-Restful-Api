@@ -7,7 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "post", schema = "dev")
+@Table(name = "posts", schema = "dev")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +38,13 @@ public class Post {
 
     @Column(name = "is_active", nullable = false)
     private boolean active = true;
+
+    public Post(String title, String content, Long userId, Long categoryId) {
+        this.title = title;
+        this.content = content;
+        this.user.setId(userId);
+        this.category.setId(categoryId);
+    }
 
     public Long getId() {
         return id;

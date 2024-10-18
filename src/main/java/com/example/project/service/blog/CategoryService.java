@@ -2,7 +2,7 @@ package com.example.project.service.blog;
 
 import com.example.project.dto.request.blog.CategoryCreateDto;
 import com.example.project.dto.request.blog.CategoryUpdateDto;
-import com.example.project.dto.response.CategoryResponse;
+import com.example.project.dto.response.blog.CategoryResponse;
 import com.example.project.model.blog.Category;
 import com.example.project.repository.blog.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;

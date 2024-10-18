@@ -11,9 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @Configuration
 public class ApplicationConfig {
     private final UserRepository userRepository;
@@ -24,20 +21,8 @@ public class ApplicationConfig {
 
     @Bean
     UserDetailsService userDetailsService() {
-        return username -> {
-            Logger logger = LoggerFactory.getLogger(UserDetailsService.class);
-            logger.info("Attempting to authenticate user with email: {}", username);
-
-            var user = userRepository.findByEmail(username)
-                    .orElseThrow(() -> {
-                        logger.error("User with email {} not found", username);
-                        return new UsernameNotFoundException("User not found");
-                    });
-
-            logger.info("User found: {}", user);
-
-            return user;
-        };
+        return username -> userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     @Bean

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "category", schema = "dev")
+@Table(name = "categories", schema = "dev")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
